@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Example</title>
+    <link href="hiiirLoading/hiiirLoading.css" rel="stylesheet">
+</head>
+
+<body>
+
+    <button id="full">全畫面loading&fade(兩秒後自動關閉)</button>
+    <button id="area">區塊loading&fade(兩秒後自動關閉)</button>
+
+    <div id="main" style="border: 1px solid red; background-color:red; width: 500px; height: 200px;">
+
+    </div>
+
+    <div id="other" style="border: 1px solid green; background-color:green; width: 400px; height: 200px;">
+
+    </div>
+
+
+    <div id="another" style="border: 1px solid blue; background-color:blue; width: 300px; height: 200px;">
+
+    </div>
+
+    <script src="jquery-1.9.1.min.js"></script>
+    <script src="hiiirLoading/hiiirLoading.js"></script>
+
+    <script>
+    $(function() {
+
+        $('#full').click(function() {
+
+            var fadeInSettings = {
+                msg: '測試fadeIn',
+                startCallback: function() {
+                    console.log('fadeIn Start');
+                },
+                endCallback: function() {
+                    console.log('fadeIn End');
+
+                    setTimeout(function() {
+                        $.hiiirLoading('fadeOut', fadeOutSettings);
+                    }, 2000);
+                }
+            };
+
+            var fadeOutSettings = {
+                startCallback: function() {
+                    console.log('fadeOut Start');
+                },
+                endCallback: function() {
+                    console.log('fadeOut End');
+                }
+            };
+
+            // 全畫面loading效果
+            $.hiiirLoading('fadeIn', fadeInSettings);
+        });
+
+
+        $('#area').click(function() {
+
+            var fadeInSettings = {
+                loading: {
+                    //top: 20,
+                    //left: 40
+                },
+                fade: {
+                    selectors: [{
+                        selector: $('#other'),
+                        settings: {}
+                    }, {
+                        selector: $('#another'),
+                        settings: {}
+                    }]
+                },
+                startCallback: function() {
+                    console.log('begin area fadein');
+                },
+                endCallback: function() {
+                    console.log('finish area fadein');
+
+                    setTimeout(function() {
+                        $('#testarea').hiiirLoading('fadeOut', fadeOutSettings);
+                    }, 2000);
+                }
+            };
+
+            var fadeOutSettings = {
+                startCallback: function() {
+                    console.log('begin area fadeout');
+                },
+                endCallback: function() {
+                    console.log('finish area fadeout');
+                },
+                fade: {
+                    selectors: [{
+                        selector: $('#sidearea'),
+                    }, {
+                        selector: $('#anotherarea'),
+                    }]
+                }
+            };
+            $('#main').hiiirLoading('fadeIn', fadeInSettings);
+        });
+    });
+    </script>
+
+</body>
+
+</html>
