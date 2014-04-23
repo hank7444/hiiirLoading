@@ -32,6 +32,7 @@
   background: url(images/ajax-loader.gif) no-repeat;
 }
 .hiiirLoading-full > .title {
+  color: #fff;
   font-size: 14px;
   margin: 0;
   text-align: center;
